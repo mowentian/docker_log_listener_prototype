@@ -1,3 +1,5 @@
+FROM debian:jessie
+
 # flume
 RUN apt-get update && apt-get install -q -y --no-install-recommends wget
 
@@ -24,6 +26,6 @@ RUN apt-get update && apt-get -y -q install rsyslog
 COPY rsyslog.conf /etc/rsyslog.conf
 
 EXPOSE 514 514/udp
-RUN [ "/usr/sbin/rsyslogd"]
+RUN /usr/sbin/rsyslogd
 
 CMD [ "start-flume" ]
