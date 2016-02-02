@@ -19,13 +19,6 @@ ENV PATH /opt/flume/bin:/opt/java/bin:$PATH
 
 ADD flume.conf /var/tmp/flume.conf
 
-# rsyslog
-RUN apt-get update && apt-get -y -q install software-properties-common python-software-properties
-RUN apt-get update && apt-get -y -q install rsyslog
-
-COPY rsyslog.conf /etc/rsyslog.conf
-
-EXPOSE 514 514/udp
-RUN /usr/sbin/rsyslogd
+EXPOSE 514
 
 CMD [ "start-flume" ]
