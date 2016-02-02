@@ -1,0 +1,18 @@
+digraph G {
+  label = "docker log listener prototype design"
+  cn [label = "computer node" shape = component]
+  cn -> sl [label = docker_log_driver]
+  sl [label = "syslog" shape = note]
+
+  f [label = "flume" shape = "component"]
+  hdfs [shape = trapezium]
+  sl -> f [label = "source"]
+  f -> hdfs [label = "sink"]
+
+  sp [label = "spark", shape = "component"]
+  hdfs -> sp [label = "data volume analyze"]
+
+  {rank = same; hdfs; sp}
+
+  f -> sp [label = "avroSink\nspark streaming"]
+}
