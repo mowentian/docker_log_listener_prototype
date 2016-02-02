@@ -1,0 +1,25 @@
+{
+  "name": "fake_node_server",
+  "version": "1.0.0",
+  "description": "http GET to log info; http POST to log error; http PUT to log warn",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mowentian/docker_log_listener_prototype.git"
+  },
+  "author": "HuangPanpan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mowentian/docker_log_listener_prototype/issues"
+  },
+  "homepage": "https://github.com/mowentian/docker_log_listener_prototype#readme",
+  "dependencies": {
+    "co-body": "^4.0.0",
+    "koa": "^1.1.2",
+    "koa-router": "^5.3.0",
+    "winston": "^2.1.1"
+  }
+}
