@@ -19,6 +19,6 @@ ENV PATH /opt/flume/bin:/opt/java/bin:$PATH
 
 ADD flume.conf /var/tmp/flume.conf
 
-EXPOSE 514/udp
+EXPOSE 514
 
 CMD [ "start-flume" ]
