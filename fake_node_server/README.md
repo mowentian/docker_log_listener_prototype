@@ -7,7 +7,9 @@ docker build -t fake_node_server .
 ## run
 
 ```
-docker run  -d -p 3000:3000 --name fake_node_running_server --log-driver=syslog  fake_node_server
+
+docker run  -d -p 3000:3000 --name fake_node_running_server --log-driver=syslog --log-opt syslog-address=tcp://127.0.0.1:5140 fake_node_server
+
 ```
 
 ## usage example
