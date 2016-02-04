@@ -13,12 +13,15 @@ RUN wget -qO- http://archive.apache.org/dist/flume/1.6.0/apache-flume-1.6.0-bin.
   | tar zxvf - -C /opt/flume --strip 1
 
 ADD start-flume.sh /opt/flume/bin/start-flume
+RUN chmod +x /opt/flume/bin/start-flume
 
 ENV JAVA_HOME /opt/java
 ENV PATH /opt/flume/bin:/opt/java/bin:$PATH
 
+# add comfig
 ADD flume.conf /var/tmp/flume.conf
 
+# flume tcp log port
 EXPOSE 514
 
-CMD [ "start-flume" ]
+CMD start-flume
