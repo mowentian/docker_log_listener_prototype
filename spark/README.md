@@ -10,12 +10,13 @@ please refer: [sequenceiq/docker-spark](https://github.com/sequenceiq/docker-spa
 ## run
 
 ```sh
-docker run -d -p 8088:8088 -p 8042:8042 -h sandbox pp-spark
+docker run -it -p 8088:8088 -p 8042:8042 -h sandbox pp-spark bash
 ```
 
 ## test
 
 ```sh
+yum install nc
 nc -lk 9999
 spark-submit /streaming/network_wordcount.py localhost 9999
 ```
