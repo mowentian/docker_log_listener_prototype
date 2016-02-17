@@ -13,11 +13,13 @@ please refer: [sequenceiq/docker-spark](https://github.com/sequenceiq/docker-spa
 docker run -it -p 8088:8088 -p 8042:8042 -h sandbox pp-spark bash
 ```
 
-## test
+## flume
 
 ```sh
-yum install nc
-nc -lk 9999
-spark-submit /streaming/network_wordcount.py localhost 9999
+
+spark-submit \
+--jars /flume_jars/spark-streaming-flume-assembly_2.10-1.6.0.jar \
+/streaming/flume_wordcount.py \
+<hostname> <port>
+
 ```
-please refer: [spark streaming-programming-guide](http://spark.apache.org/docs/latest/streaming-programming-guide.html)
