@@ -32,4 +32,4 @@
 
 ### 输入与输出
 
-输入见 [fake_node_server 伪接口](fake_node_server/README.md)，在 `log_show` 上即可跟踪 `error`、`warn`、`info` 的产生情况。
+输入见 [fake_node_server 接口](fake_node_server/README.md#usage-example)，在 `log_show` 上即可跟踪 `error`、`warn`、`info` 的产生情况。
