@@ -10,7 +10,7 @@ please refer: [sequenceiq/docker-spark](https://github.com/sequenceiq/docker-spa
 ## run
 
 ```sh
-docker run -it -p 8088:8088 -p 8042:8042 -h sandbox pp-spark bash
+docker run -it -p 9999:9999 -h sandbox pp-spark bash
 ```
 
 ## flume
@@ -20,6 +20,6 @@ docker run -it -p 8088:8088 -p 8042:8042 -h sandbox pp-spark bash
 spark-submit \
 --jars /flume_jars/spark-streaming-flume-assembly_2.10-1.6.0.jar \
 /streaming/flume_wordcount.py \
-<hostname> <port>
+127.0.0.1 9999
 
 ```
