@@ -12,6 +12,9 @@ digraph G {
   sp [label = "spark", shape = "component"]
   hdfs -> sp [label = "data volume analyze"]
 
+  ls [label = "log show", shape = "component"]
+  sp -> ls [label = "post analysed meta data"]
+
   {rank = same; hdfs; sp}
 
   f -> sp [label = "avroSink\nspark streaming"]
