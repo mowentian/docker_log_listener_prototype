@@ -38,31 +38,32 @@ import json
 import urllib2
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: flume_wordcount.py <hostname> <port> <pp_log_show_url>",
+    if len(sys.argv) != 4:
+        print("Usage: flume_wordcount.py <hostname> <port> <logshowurl>",
             file=sys.stderr)
         exit(-1)
 
     sc = SparkContext(appName="PythonStreamingFlumeWordCount")
     ssc = StreamingContext(sc, 1)
 
-    hostname, port, ppls_url = sys.argv[1:]
+    hostname, port, url = sys.argv[1:]
     kvs = FlumeUtils.createStream(ssc, hostname, int(port))
     lines = kvs.map(lambda x: x[1])
     counts = lines.flatMap(lambda line: line.split(" ")) \
         .map(lambda word: (word, 1)) \
         .reduceByKey(lambda a, b: a+b)
     counts.pprint()
-    """
-     Post the counts data to pp_log_show
-    """
-    data = json.dumps(counts)
-    clen = len(data)
-    req = urllib2.Request(ppls_url, data, {'Content-Type': 'application/json',
-        'Content-Length': clen})
-    f = urllib2.urlopen(req)
-    response = f.read()
-    f.close()
+    counts.foreachRDD(postRDD)
 
     ssc.start()
     ssc.awaitTermination()
+
+def postRDD(rdd):
+    rdd.foreach(lambda record: postRecode(record))
+
+def postRecode(record):
+    data = json.dumps(record)
+    req = urllib2.Request(url, data, {'Content-Type': 'application/json'})
+    f = urllib2.urlopen(req)
+    response = f.read()
+    f.close()
