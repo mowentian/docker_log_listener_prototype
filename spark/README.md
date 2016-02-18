@@ -20,6 +20,6 @@ docker run -it -p 9999:9999 -h sandbox pp-spark bash
 spark-submit \
 --jars /flume_jars/spark-streaming-flume-assembly_2.10-1.6.0.jar \
 /streaming/flume_wordcount.py \
-0.0.0.0 9999
+0.0.0.0 9999 http://172.17.0.1:3001
 
 ```

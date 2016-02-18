@@ -19,8 +19,12 @@
   "homepage": "https://github.com/mowentian/docker_log_listener_prototype#readme",
   "dependencies": {
     "co-body": "^4.0.0",
+    "jade": "^1.11.0",
     "koa": "^1.1.2",
     "koa-router": "^5.3.0",
+    "koa-socket": "^4.0.0",
+    "koa-static": "^2.0.0",
+    "koa-views": "^4.0.1",
     "winston": "^2.1.1"
   }
 }
