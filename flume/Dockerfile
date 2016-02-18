@@ -18,7 +18,7 @@ RUN chmod +x /opt/flume/bin/start-flume
 ENV JAVA_HOME /opt/java
 ENV PATH /opt/flume/bin:/opt/java/bin:$PATH
 
-# add comfig
+# add config
 ADD flume.conf /var/tmp/flume.conf
 
 # flume tcp log port

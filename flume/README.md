@@ -10,7 +10,7 @@ docker build -t pp-flume .
 
 ```
 docker run \
-  -e FLUME_AGENT_NAME=a1 \
+  -e FLUME_AGENT_NAME=agent \
   -e FLUME_CONF_FILE=/var/tmp/flume.conf \
   -p 514:514 \
   pp-flume
