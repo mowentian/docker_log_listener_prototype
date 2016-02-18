@@ -46,7 +46,7 @@ if __name__ == "__main__":
     sc = SparkContext(appName="PythonStreamingFlumeWordCount")
     ssc = StreamingContext(sc, 1)
 
-    hostname, port, url = sys.argv[1:]
+    hostname, port, logshowurl = sys.argv[1:]
     kvs = FlumeUtils.createStream(ssc, hostname, int(port))
     lines = kvs.map(lambda x: x[1])
     counts = lines.flatMap(lambda line: line.split(" ")) \
@@ -63,7 +63,8 @@ def postRDD(rdd):
 
 def postRecode(record):
     data = json.dumps(record)
-    req = urllib2.Request(url, data, {'Content-Type': 'application/json'})
+    head = {'Content-Type': 'application/json'}
+    req = urllib2.Request(logshowurl, data, head)
     f = urllib2.urlopen(req)
-    response = f.read()
+    res = f.read()
     f.close()
