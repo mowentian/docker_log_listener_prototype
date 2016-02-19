@@ -20,6 +20,13 @@ var counts = {
     winston.error('total error:' + this.error);
     winston.warn('total warn:' + this.warn);
     winston.info('total info:' + this.info);
+  },
+  diagram_data: function() {
+    return [
+      {label: "error", value: this.error},
+      {label: "warn", value: this.warn},
+      {label: "info", value: this.info}
+    ];
   }
 };
 
@@ -31,13 +38,18 @@ app
 
 var io = new socket();
 io.attach(app);
+io.on('connection', (ctx, data) => {
+  counts.print();
+  io.broadcast('counts', counts.diagram_data());
+});
+
 router
   .post('/', function *() {
     var data = yield body.json(this);
 
     counts.add_counts(data);
     counts.print();
-    io.broadcast('counts', counts);
+    io.broadcast('counts', counts.diagram_data());
 
     this.body = data;
   })
