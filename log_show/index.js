@@ -6,20 +6,33 @@ var kstatic = require('koa-static');
 var views = require('koa-views');
 var socket = require('koa-socket');
 
+var logger = new winston.Logger({
+  transports: [
+    new winston.transports.Console({
+      colorize: true,
+      prettyPrint: true,
+      handleExceptions: true,
+      humanReadableUnhandledException: true
+    })
+  ],
+  exitOnError: false
+});
+
 var counts = {
     error: 0,
     warn: 0,
     info: 0,
 
   add_counts: function(data) {
-    this.error += data.error === undefined ? 0 : data.error;
-    this.warn += data.warn === undefined ? 0 : data.warn;
-    this.info += data.info === undefined ? 0 : data.info;
+    logger.info(data);
+    this.error += data['0'] === 'error:' ? data['1']: 0;
+    this.warn += data['0'] === 'warn:' ? data['1']: 0;
+    this.info += data['0'] === 'info:' ? data['1']: 0;
   },
   print: function() {
-    winston.error('total error:' + this.error);
-    winston.warn('total warn:' + this.warn);
-    winston.info('total info:' + this.info);
+    logger.error('total error:' + this.error);
+    logger.warn('total warn:' + this.warn);
+    logger.info('total info:' + this.info);
   },
   diagram_data: function() {
     return [
@@ -59,4 +72,4 @@ router
 ;
 
 app.server.listen(3001);
-winston.info('server started');
+logger.info('server started');
