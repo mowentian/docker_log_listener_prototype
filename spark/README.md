@@ -11,7 +11,6 @@ please refer: [sequenceiq/docker-spark](https://github.com/sequenceiq/docker-spa
 
 ```sh
 docker run -it -p 9999:9999 -h sandbox pp-spark bash
-docker run -d -p 9999:9999 --log-driver=syslog -h sandbox pp-spark 
 ```
 
 ## flume
