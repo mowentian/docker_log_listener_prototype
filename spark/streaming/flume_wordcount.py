@@ -37,6 +37,17 @@ from pyspark.streaming.flume import FlumeUtils
 import json
 import urllib2
 
+def postRDD(rdd):
+    rdd.foreach(lambda record: postRecode(record))
+
+def postRecode(record):
+    data = json.dumps(record)
+    head = {'Content-Type': 'application/json'}
+    req = urllib2.Request(logshowurl, data, head)
+    f = urllib2.urlopen(req)
+    res = f.read()
+    f.close()
+
 if __name__ == "__main__":
     if len(sys.argv) != 4:
         print("Usage: flume_wordcount.py <hostname> <port> <logshowurl>",
@@ -57,14 +68,3 @@ if __name__ == "__main__":
 
     ssc.start()
     ssc.awaitTermination()
-
-def postRDD(rdd):
-    rdd.foreach(lambda record: postRecode(record))
-
-def postRecode(record):
-    data = json.dumps(record)
-    head = {'Content-Type': 'application/json'}
-    req = urllib2.Request(logshowurl, data, head)
-    f = urllib2.urlopen(req)
-    res = f.read()
-    f.close()
